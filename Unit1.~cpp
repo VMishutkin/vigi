@@ -1,0 +1,73 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+#include "Unit1.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TForm1 *Form1;
+//---------------------------------------------------------------------------
+__fastcall TForm1::TForm1(TComponent* Owner)
+        : TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Button1Click(TObject *Sender) //шифруем
+{
+AnsiString tocode=Edit1->Text;
+AnsiString key=Edit4->Text;
+AnsiString abc ("ајбЅв¬г√дƒе≈Є®ж∆з«ий…»к лЋмћнЌоќпѕр–с—т“у”ф\
+‘х’ц÷ч„шЎщўъЏыџь№эЁюё€я");
+//key = key.Length();
+    int len = tocode.Length();
+    int a= abc.Length();
+    int k=key.Length();
+    for (int i=k; i<len; i++){
+        key=key+key[i%k];
+    }
+    AnsiString crypted="";
+    int ind1,ind2;
+    for (int i=0; i<k; i++){
+        //ind1=abc.find(tocode[i]);
+        //ind2=abc.find(key[i]);
+        ind1=abc.Pos(tocode[i]);
+        ind2=abc.Pos(key[i]);
+        crypted.Insert(abc[(ind1+ind2)%66],i);
+        //crypted.Insert(i,1,abc.at((ind1+ind2)%33));
+    }
+    Edit2->Text=crypted;
+
+
+
+
+
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Button2Click(TObject *Sender)  //расшифровываем
+{
+
+AnsiString todecode;
+
+ todecode=Edit2->Text;
+ //n=ComboBox1->ItemIndex;
+ /*for (int i=1;i<=todecode.Length();i++)
+ {
+    T =( (unsigned char)todecode[ i ] - n);
+    if (T <= 0)  T=T+255;
+    todecode[ i ] = (char) T;
+      }
+  Edit3->Text = todecode;
+*/}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Button3Click(TObject *Sender)   //чистим
+{
+Edit1->Clear();
+Edit2->Clear();
+Edit3->Clear();
+
+}
+//---------------------------------------------------------------------------
